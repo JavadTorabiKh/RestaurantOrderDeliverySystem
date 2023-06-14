@@ -1,7 +1,9 @@
 from abc import ABCMeta, abstractmethod
-
+import pika
 
 # Subject
+
+
 class Publisher:
 
     def __init__(self):
@@ -22,7 +24,7 @@ class Publisher:
         self.__latestFood = food
 
     def getFood(self):
-        return "food : ", self.__latestFood
+        return self.__latestFood
 
 
 # Observer
@@ -39,10 +41,27 @@ class EmailBike:
     def __init__(self, publisher):
         self.publisher = publisher
         self.publisher.onlineBike(self)
+    
+    def on_request(self,ch, method, props ,body):
+        message = self.publisher.getFood()    
+        print(" [.] message is", message)
+        ch.basic_publish(
+            exchange='',
+            routing_key=props.reply_to,
+            properties=pika.BasicProperties(correlation_id=props.correlation_id),
+            body=message)
+        ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def update(self):
-        print(type(self).__name__, self.publisher.getFood())
-
+        
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        channel = connection.channel()
+        channel.queue_declare(queue='rpc_queue')
+        channel.basic_qos(prefetch_count=1)
+        channel.basic_consume(queue='rpc_queue', on_message_callback=self.on_request)
+        print(" [x] Awaiting RPC requests")
+        channel.start_consuming()
+        
 
 if __name__ == '__main__':
     pub = Publisher()
