@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 import pika
+import uuid
 
 # Subject
 
@@ -42,26 +43,53 @@ class EmailBike:
         self.publisher = publisher
         self.publisher.onlineBike(self)
     
-    def on_request(self,ch, method, props ,body):
-        message = self.publisher.getFood()    
-        print(" [.] message is", message)
-        ch.basic_publish(
-            exchange='',
-            routing_key=props.reply_to,
-            properties=pika.BasicProperties(correlation_id=props.correlation_id),
-            body=message)
-        ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def update(self):
+        fibonacci_rpc = RpcBike()
+        food = self.publisher.getFood()
+        print('food Message send .....')
+        response = fibonacci_rpc.call(f'{food} baraye Mohhamad!!!')
+        print(" [.] Got %r" % response)
         
-        connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-        channel = connection.channel()
-        channel.queue_declare(queue='rpc_queue')
-        channel.basic_qos(prefetch_count=1)
-        channel.basic_consume(queue='rpc_queue', on_message_callback=self.on_request)
-        print(" [x] Awaiting RPC requests")
-        channel.start_consuming()
-        
+
+# RPC RabbitMQ
+class RpcBike(object):
+
+    def __init__(self):
+        self.connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host='localhost'))
+
+        self.channel = self.connection.channel()
+
+        result = self.channel.queue_declare(queue='', exclusive=True)
+        self.callback_queue = result.method.queue
+
+        self.channel.basic_consume(
+            queue=self.callback_queue,
+            on_message_callback=self.on_response,
+            auto_ack=True)
+
+        self.response = None
+        self.corr_id = None
+
+    def on_response(self, ch, method, props, body):
+        if self.corr_id == props.correlation_id:
+            self.response = body
+
+    def call(self, FoodMessage):
+        self.response = None
+        self.corr_id = str(uuid.uuid4())
+        self.channel.basic_publish(
+            exchange='',
+            routing_key='rpc_queue',
+            properties=pika.BasicProperties(
+                reply_to=self.callback_queue,
+                correlation_id=self.corr_id,
+            ),
+            body=str(FoodMessage))
+        self.connection.process_data_events(time_limit=None)
+        return self.response
+
 
 if __name__ == '__main__':
     pub = Publisher()
@@ -69,4 +97,3 @@ if __name__ == '__main__':
 
     pub.addFoods("PIZZA")
     pub.notifyForBike()
-    print("\nBikess: ", pub.Bikes)
