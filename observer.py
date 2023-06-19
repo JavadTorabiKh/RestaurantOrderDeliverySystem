@@ -60,7 +60,9 @@ class RpcBike(object):
             pika.ConnectionParameters(host='localhost'))
 
         self.channel = self.connection.channel()
+        
 
+        
         result = self.channel.queue_declare(queue='', exclusive=True)
         self.callback_queue = result.method.queue
 
