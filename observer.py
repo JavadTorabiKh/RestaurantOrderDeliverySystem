@@ -42,7 +42,6 @@ class EmailBike:
     def __init__(self, publisher):
         self.publisher = publisher
         self.publisher.onlineBike(self)
-    
 
     def update(self):
         fibonacci_rpc = RpcBike()
@@ -50,7 +49,7 @@ class EmailBike:
         print('food Message send .....')
         response = fibonacci_rpc.call(f'{food} baraye Mohhamad!!!')
         print(" [.] Got %r" % response)
-        
+
 
 # RPC RabbitMQ
 class RpcBike(object):
@@ -60,9 +59,7 @@ class RpcBike(object):
             pika.ConnectionParameters(host='localhost'))
 
         self.channel = self.connection.channel()
-        
 
-        
         result = self.channel.queue_declare(queue='', exclusive=True)
         self.callback_queue = result.method.queue
 
