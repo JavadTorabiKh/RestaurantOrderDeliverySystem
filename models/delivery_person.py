@@ -1,4 +1,4 @@
-from order import Observer
+from .order import Observer
 
 
 class DeliveryPerson(Observer):
