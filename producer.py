@@ -20,7 +20,6 @@ class OrderSystem(Order):
         self.notify_observers(order_details)
 
 
-# مثال استفاده
 order_system = OrderSystem()
 delivery_person_1 = DeliveryPerson("Ali")
 delivery_person_2 = DeliveryPerson("Sara")
