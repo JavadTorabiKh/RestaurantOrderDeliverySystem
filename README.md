@@ -41,7 +41,7 @@ To get a local copy up and running, follow these steps:
 
 2. **Install dependencies**:
 
-Navigate to the project directory and install the necessary packages:
+    Navigate to the project directory and install the necessary packages:
 
     ```bash
     cd restaurant-order-delivery-system
@@ -50,11 +50,11 @@ Navigate to the project directory and install the necessary packages:
     ```
 
 3. **Set up RabbitMQ**:
-Ensure RabbitMQ is installed and running on your machine. [You can follow the official RabbitMQ installation guide](https://www.rabbitmq.com/docs/download).
+    Ensure RabbitMQ is installed and running on your machine. [You can follow the official RabbitMQ installation guide](https://www.rabbitmq.com/docs/download).
 
 4. **Run the application**:
 
-Start the application with the following command:
+    Start the application with the following command:
 
     ```bash
     python app.py
