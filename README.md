@@ -57,7 +57,7 @@ To get a local copy up and running, follow these steps:
     Start the application with the following command:
 
     ```bash
-    python app.py
+    python producer.py
     ```
 
 ## Usage
