@@ -62,9 +62,9 @@ To get a local copy up and running, follow these steps:
 
 ## Usage
 
-    1. Place an Order: Use the restaurant interface to place a new order.
-    2. Notify Delivery Agents: The system will automatically notify all subscribed delivery agents.
-    3. Track Deliveries: Delivery agents can view and accept orders in real time.
+1. Place an Order: Use the restaurant interface to place a new order.
+2. Notify Delivery Agents: The system will automatically notify all subscribed delivery agents.
+3. Track Deliveries: Delivery agents can view and accept orders in real time.
 
 
 ## Contributing
