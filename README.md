@@ -70,13 +70,16 @@ To get a local copy up and running, follow these steps:
 ## Contributing
 Contributions are welcome! Please follow these steps:
 
-Fork the repo.
-Create a new branch (git checkout -b feature/YourFeature).
-Make your changes.
-Commit your changes (git commit -m 'Add some feature').
-Push to the branch (git push origin feature/YourFeature).
-Open a Pull Request.
+1. Fork the repo.
+2. Create a new branch (git checkout -b feature/YourFeature).
+3. Make your changes.
+4. Commit your changes (git commit -m 'Add some feature').
+5. Push to the branch (git push origin feature/YourFeature).
+6. Open a Pull Request.
+
+
 ## License
 Distributed under the MIT License. See LICENSE for more information.
 
-Thank you for checking out the Restaurant Order Delivery System! We hope you find it useful and efficient.
+
+### Thank you for checking out the Restaurant Order Delivery System! We hope you find it useful and efficient.
