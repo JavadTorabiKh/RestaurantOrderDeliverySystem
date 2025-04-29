@@ -10,6 +10,7 @@ def deliver_order(ch, method, properties, body):
 
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
+
 channel = connection.channel()
 
 channel.queue_declare(queue='order_queue')
