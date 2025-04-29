@@ -27,8 +27,8 @@ In the fast-paced world of food delivery, timely communication between restauran
 
 - **RabbitMQ**: For handling message queuing and delivery.
 - **Observer Design Pattern**: To manage the relationship between orders and delivery agents.
-- **[Your Programming Language]**: (e.g., Python, Java, etc.)
-- **[Frameworks Used]**: (e.g., Flask, Spring, etc.)
+- **[Python Programming Language]**: Python
+- **[Frameworks Used]**: (e.g., Flask, , etc.)
 
 ## Getting Started
 
