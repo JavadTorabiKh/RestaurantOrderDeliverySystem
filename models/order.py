@@ -2,7 +2,6 @@ class Observer:
     def update(self, order):
         raise NotImplementedError("Subclasses should implement this method.")
 
-
 class Order:
     def __init__(self):
         self._observers = []
